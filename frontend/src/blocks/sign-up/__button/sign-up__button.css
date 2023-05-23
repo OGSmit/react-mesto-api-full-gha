@@ -1,0 +1,37 @@
+.sign-up__button {
+  width: 260px;
+  height: 46px;
+  background: #FFFFFF;
+  border-radius: 2px;
+  margin: 186px auto 0;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+  color: #000000;
+}
+
+.sign-up__button:hover {
+  cursor: pointer;
+  opacity: .4;
+}
+
+@media (min-width: 450px) {
+  .sign-up__button {
+    width: 358px;
+    height: 50px;
+  }
+}
+
+.sign-up__button_invalid {
+  opacity: .4;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 1);
+  color: rgba(0, 0, 0, 1);
+}
+
+.sign-up__button_invalid:hover {
+  cursor: auto;
+ }
