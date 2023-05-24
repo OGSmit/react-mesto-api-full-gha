@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://auth.nomoreparties.co';
+export const BASE_URL = 'api.ogsmit.nomoredomains.monster';
 
 function checkResponse(res) {
   if(res.ok) {
