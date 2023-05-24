@@ -12,9 +12,9 @@ export const buttonEdit = document.querySelector('.profiles__buttons-edit');
 export const buttonAdd = document.querySelector('.profiles__buttons-add');
 export const buttonEditAvatar = document.querySelector('.profiles__buttons-avatar');
 export const configForApi = {
-  url: 'https://mesto.nomoreparties.co/v1/cohort-60',
+  url: 'api.ogsmit.nomoredomains.monster',
   headers: {
-    authorization: '0ea15e75-4859-43c3-ab57-7a6ebeb67038',
+    authorization: `Bearer ${localStorage.getItem('jwt')}`,
     'Content-Type': 'application/json'
   }
 }

@@ -1,10 +1,4 @@
-const configForApi = {
-  url: 'api.ogsmit.nomoredomains.monster',
-  headers: {
-    'authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDZlMWQwNTM2Y2UwYzAwMWE0MTdmODYiLCJpYXQiOjE2ODQ5MzgwMTN9.u9SjO-asPl3C4HZ6OC6WwHSNjpd1jXZLWIDwQ4yCgEQ',
-    'Content-Type': 'application/json'
-  }
-}
+import configForApi from './constants';
 
 class Api {
   constructor(config) {
