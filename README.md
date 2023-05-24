@@ -8,8 +8,8 @@
 
 ## Ссылки на проект
 
-IP-адрес x.x.x.x
+IP-адрес 158.160.104.250
 
-Frontend https://...
+Frontend https://ogsmit.nomoredomains.monster
 
-Backend https://...
+Backend https://api.ogsmit.nomoredomains.monster
