@@ -1,4 +1,10 @@
-import configForApi from './constants';
+const configForApi = {
+  url: 'api.ogsmit.nomoredomains.monster',
+  headers: {
+    authorization: `Bearer ${localStorage.getItem('jwt')}`,
+    'Content-Type': 'application/json'
+  }
+};
 
 class Api {
   constructor(config) {
