@@ -1,7 +1,7 @@
 const configForApi = {
-  url: 'api.ogsmit.nomoredomains.monster',
+  url: 'https://api.ogsmit.nomoredomains.monster',
   headers: {
-    authorization: `Bearer ${localStorage.getItem('jwt')}`,
+    'authorization': `Bearer ${localStorage.getItem('jwt')}`,
     'Content-Type': 'application/json'
   }
 };

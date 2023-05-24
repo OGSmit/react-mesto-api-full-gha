@@ -11,12 +11,6 @@ export const validationConfig = {
 export const buttonEdit = document.querySelector('.profiles__buttons-edit');
 export const buttonAdd = document.querySelector('.profiles__buttons-add');
 export const buttonEditAvatar = document.querySelector('.profiles__buttons-avatar');
-export const configForApi = {
-  url: 'api.ogsmit.nomoredomains.monster',
-  headers: {
-    authorization: `Bearer ${localStorage.getItem('jwt')}`,
-    'Content-Type': 'application/json'
-  }
-}
+
 
 
