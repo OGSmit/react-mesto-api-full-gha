@@ -46,7 +46,7 @@ function App() {
   
   useEffect(() => {
     handleTokenCheck()
-    return () => { }
+    return () => {}
   }, [])
   
   function handleTokenCheck() {

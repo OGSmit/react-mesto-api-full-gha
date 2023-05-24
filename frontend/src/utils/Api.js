@@ -1,7 +1,7 @@
 const configForApi = {
-  url: 'https://mesto.nomoreparties.co/v1/cohort-60',
+  url: 'api.ogsmit.nomoredomains.monster',
   headers: {
-    authorization: '0ea15e75-4859-43c3-ab57-7a6ebeb67038',
+    'authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDZlMWQwNTM2Y2UwYzAwMWE0MTdmODYiLCJpYXQiOjE2ODQ5MzgwMTN9.u9SjO-asPl3C4HZ6OC6WwHSNjpd1jXZLWIDwQ4yCgEQ',
     'Content-Type': 'application/json'
   }
 }

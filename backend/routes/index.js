@@ -6,6 +6,12 @@ const routesUser = require('./user');
 const routesCard = require('./card');
 const NotFoundError = require('../error/not-found-error');
 
+router.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
+
 router.post('/signup', signUpBodyValidator, createUser);
 
 router.post('/signin', signInBodyValidator, login);
