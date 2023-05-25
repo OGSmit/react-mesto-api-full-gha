@@ -46,23 +46,22 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    function handleTokenCheck() {
+      const jwt = localStorage.getItem('jwt');
+      if (jwt) {
+        return tokencheck(jwt).then((res) => {
+          setIsloggedIn(true)
+          setEmailAccount(res.data.email)
+        })
+          .then(() => {
+            navigate("/main", { replace: true })
+          })
+          .catch(err => console.log(err))
+      }
+    }
     handleTokenCheck()
     return () => { }
-  }, [])
-
-  function handleTokenCheck() {
-    const jwt = localStorage.getItem('jwt');
-    if (jwt) {
-      return tokencheck(jwt).then((res) => {
-        setIsloggedIn(true)
-        setEmailAccount(res.data.email)
-      })
-        .then(() => {
-          navigate("/main", { replace: true })
-        })
-        .catch(err => console.log(err))
-    }
-  }
+  }, [navigate])
 
   function handleCardRemoveClick(card) {
     setIsConfirmDeletePopupOpen(true);
@@ -96,9 +95,9 @@ function App() {
     return authorize(password, email)
       .then((res) => {
         if (res.token) {
-          setEmailAccount(email)
+          setEmailAccount(email);
           localStorage.setItem('jwt', res.token);
-          setIsloggedIn(true)
+          setIsloggedIn(true);
           navigate('/main', { replace: true })
         }
       })
@@ -142,6 +141,7 @@ function App() {
     setIsApiProcessing(true)
     api.removeCard(cardForRemove._id)
       .then(() => {
+        // eslint-disable-next-line array-callback-return
         const updatedCards = cards.filter((element) => {
           if (element._id !== cardForRemove._id) {
             return element
@@ -212,6 +212,7 @@ function App() {
   function goExit() {
     localStorage.removeItem('jwt');
     setIsloggedIn(false)
+    setCards([]);
     navigate('/', { replace: true });
     console.log('ok')
   }
@@ -246,7 +247,6 @@ function App() {
     if (isloggedIn) {
       api.getProfile()
         .then((data) => {
-          console.log(data);
           setCurrentUser({
             ...currentUser,
             ...data.data
@@ -261,8 +261,11 @@ function App() {
     if (isloggedIn) {
       api.getInitialCard()
         .then((data) => {
-          console.log(data);
-          setCards([...cards, ...data]);
+          data.reverse()
+          setCards([
+            ...data,
+            ...cards
+          ]);
         }).catch(err => console.log(`Component Main get ${err}`))
     } return () => { }
   }, [isloggedIn]);
@@ -280,10 +283,6 @@ function App() {
       }
     }
   }, [isSomePopupOpen])
-
-  useEffect(() => {
-    console.log(`пользователь ${currentUser}`, currentUser)
-  }, [currentUser])
 
   return (
     <div className="page">

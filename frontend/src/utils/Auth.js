@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://api.ogsmit.nomoredomains.monster';
+export const BASE_URL = 'https://api.ogsmit.nomoredomains.monste';
 
 function checkResponse(res) {
   if(res.ok) {
@@ -32,7 +32,7 @@ export const authorize = (password, email) => {
   }).then(res => checkResponse(res))
 };
 
-export const tokencheck = (token) => {
+export const tokencheck = () => {
   return fetch(`${BASE_URL}/users/me`, {
     method: 'GET',
     headers: {

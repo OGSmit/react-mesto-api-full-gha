@@ -28,9 +28,9 @@ function Main(props) {
         </div>
       </section>
       <section className="profile-content">
-        {props.cards.map((card) => {
+        {props.cards.map((card, index) => {
           return (
-            <Card onCardDelete={props.onCardDelete} onCardLike={props.onCardLike} key={card._id} onCardClick={props.onCardClick} card={card} name={card.name} link={card.link} likes={card.likes} />
+            <Card onCardDelete={props.onCardDelete} onCardLike={props.onCardLike} key={index} onCardClick={props.onCardClick} card={card} name={card.name} link={card.link} likes={card.likes} />
           )
         })}
       </section>

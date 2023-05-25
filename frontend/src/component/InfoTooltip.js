@@ -17,7 +17,7 @@ function InfoTooltip(props) {
     <div onClick={handleClick} className={props.isOpened ? 'popup popup_opened' : 'popup'} id={props.name}>
       <div onClick={handleClickForChildren} className="popup__container popup__container_form popup__container_target">
         <button className="popup__buttons-close" type="button" onClick={props.onClose} />
-        <img src={props.title ? succesIcon : denied} />
+        <img alt={props.title ? "Успех" : "Отказ"} src={props.title ? succesIcon : denied} />
         <h3 className="popup__title-tooltip">{props.message}</h3>
       </div>
     </div>

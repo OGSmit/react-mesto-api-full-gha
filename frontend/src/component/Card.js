@@ -4,8 +4,6 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 function Card(props) {
 
   const userInfo = useContext(CurrentUserContext);
-  console.log(`В Card ${userInfo}`, userInfo)
-  console.log(props.card)
   const isOwn = props.card.owner === userInfo._id;
   const isLiked = props.card.likes.some(i => i === userInfo._id);
 
