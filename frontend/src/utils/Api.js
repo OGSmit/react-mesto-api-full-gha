@@ -4,7 +4,7 @@ const configForApi = {
     'authorization': `Bearer ${localStorage.getItem('jwt')}`,
     'Content-Type': 'application/json'
   }
-};
+}; // конфиг инициализируеться еще до того как у нас появился токен 
 
 class Api {
   constructor(config) {
