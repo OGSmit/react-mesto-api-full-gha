@@ -19,6 +19,7 @@ import { tokencheck, authorize, register } from '../utils/Auth';
 
 
 
+
 function App() {
   // States
   // boolean
@@ -43,12 +44,12 @@ function App() {
   const [toolTipMessage, setToolTipMessage] = useState('');
 
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     handleTokenCheck()
-    return () => {}
+    return () => { }
   }, [])
-  
+
   function handleTokenCheck() {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
@@ -62,12 +63,12 @@ function App() {
         .catch(err => console.log(err))
     }
   }
-  
+
   function handleCardRemoveClick(card) {
     setIsConfirmDeletePopupOpen(true);
     setCardForRemove(card);
   }
-  
+
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
   }
@@ -111,14 +112,16 @@ function App() {
   async function handleRegistration(password, email) {
     return register(password, email)
       .then((res) => {
-        if (res.data.email) {
+        console.log(res);
+        if (res.email) {
           navigate('/sign-in', { replace: true })
           setIsAuthActionDone(true);
           setIsToolTipOpened(true);
           setToolTipMessage('Вы успешно зарегистрировались!')
         }
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log(err);
         setIsToolTipOpened(true)
         setIsAuthActionDone(false)
         setToolTipMessage('Что-то пошло не так! Попробуйте ещё раз')
@@ -154,7 +157,7 @@ function App() {
   }
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    const isLiked = card.likes.some(i => i === currentUser._id);
     if (isLiked) {
       api.removelikeCard(card._id)
         .then((newCard) => {
@@ -176,7 +179,7 @@ function App() {
       .then((data) => {
         setCurrentUser({
           ...currentUser,
-          ...data
+          ...data.data
         });
         closeAllPopups();
       })
@@ -190,7 +193,10 @@ function App() {
     setIsApiProcessing(true)
     api.editAvatar(item)
       .then((data) => {
-        setCurrentUser({ ...currentUser, ...data });
+        setCurrentUser({
+          ...currentUser,
+          ...data.data
+        });
         closeAllPopups();
       })
       .catch(err => console.log(`Упс ${err}`))
@@ -219,7 +225,7 @@ function App() {
     document.querySelector('.burger').classList.add('burger_opened');
   }
 
- async function handleAddPlaceSubmit(item) {
+  async function handleAddPlaceSubmit(item) {
     setIsApiProcessing(true)
     return api.addCard(item)
       .then((data) => {
@@ -231,17 +237,19 @@ function App() {
       })
       .catch(err => console.log(`Упс ${err}`))
       .finally(() => {
+        console.log(cards)
         setIsApiProcessing(false)
       })
   }
 
   useEffect(() => {
     if (isloggedIn) {
-       api.getProfile()
+      api.getProfile()
         .then((data) => {
+          console.log(data);
           setCurrentUser({
             ...currentUser,
-            ...data
+            ...data.data
           });
         })
         .catch(err => console.log(`Component Main get ${err}`))
@@ -251,8 +259,9 @@ function App() {
 
   useEffect(() => {
     if (isloggedIn) {
-       api.getInitialCard()
+      api.getInitialCard()
         .then((data) => {
+          console.log(data);
           setCards([...cards, ...data]);
         }).catch(err => console.log(`Component Main get ${err}`))
     } return () => { }
@@ -271,6 +280,10 @@ function App() {
       }
     }
   }, [isSomePopupOpen])
+
+  useEffect(() => {
+    console.log(`пользователь ${currentUser}`, currentUser)
+  }, [currentUser])
 
   return (
     <div className="page">

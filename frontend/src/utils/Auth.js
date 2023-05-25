@@ -1,4 +1,4 @@
-export const BASE_URL = 'api.ogsmit.nomoredomains.monster';
+export const BASE_URL = 'https://api.ogsmit.nomoredomains.monster';
 
 function checkResponse(res) {
   if(res.ok) {
@@ -38,7 +38,7 @@ export const tokencheck = (token) => {
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
     }
   }).then(res => checkResponse(res))
 } 

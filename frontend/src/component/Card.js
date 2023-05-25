@@ -4,8 +4,10 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 function Card(props) {
 
   const userInfo = useContext(CurrentUserContext);
-  const isOwn = props.card.owner._id === userInfo._id;
-  const isLiked = props.card.likes.some(i => i._id === userInfo._id);
+  console.log(`В Card ${userInfo}`, userInfo)
+  console.log(props.card)
+  const isOwn = props.card.owner === userInfo._id;
+  const isLiked = props.card.likes.some(i => i === userInfo._id);
 
   function handleCardClick() {
     props.onCardClick(props.card);
@@ -26,7 +28,6 @@ function Card(props) {
       className="place-card__image"
       onClick={handleCardClick}
     />
-    <p className="place-card__author">by {props.card.owner.name}</p>
     <button className={isOwn? "place-card__buttons-delete" : "place-card__buttons-delete place-card__buttons-hidden" } onClick={handleDeleteClick} type="button" />
     <div className="place-card__container">
       <h2 className="place-card__subtitle">{props.name}</h2>
