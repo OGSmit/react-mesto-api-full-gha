@@ -14,13 +14,19 @@ class Api {
 
   getInitialCard() {
     return fetch(`${this.url}/cards`, {
-      headers: this.headers
+      headers: {
+        'authorization': `Bearer ${localStorage.getItem('jwt')}`, // перенес сюда так как фиксил баг https://disk.yandex.ru/i/0qzw9jcS5dOBhQ
+        'Content-Type': 'application/json'
+      }
     }).then(this._checkResponse)
   }
 
   getProfile() {
     return fetch(`${this.url}/users/me`, {
-      headers: this.headers
+      headers: {
+        'authorization': `Bearer ${localStorage.getItem('jwt')}`, // перенес сюда так как фиксил баг https://disk.yandex.ru/i/0qzw9jcS5dOBhQ
+        'Content-Type': 'application/json'
+      }
     }).then(this._checkResponse)
   }
 
