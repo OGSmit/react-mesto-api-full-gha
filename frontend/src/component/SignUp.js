@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 function SignUp({ onRegistr }) {
   const [formValue, setFormValue] = useState({});
-
+  const [showPassword, setShowPassword] = useState(false);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormValue({
@@ -28,6 +28,8 @@ function SignUp({ onRegistr }) {
         <input required type="email" onChange={handleChange} placeholder="Email" name="email" className="sign-up__input"></input>
         <input required type="password" onChange={handleChange} placeholder="Пароль" name="password" className="sign-up__input"></input>
         <button className="sign-up__button">Зарегистрироваться</button>
+        <button className='sign-up__showPasswordButton' onMouseLeave={() => {setShowPassword(!showPassword)}} onMouseOver={() => {setShowPassword(!showPassword)}}></button>
+        <div className={showPassword? "triangle-right" : 'triangle-rightOff'}></div>
       </form>
       <p className="sign-up__registration-question">Уже зарегистрированы? <Link className="sign-up__link" to="/sign-in">Войти</Link></p>
     </section>
