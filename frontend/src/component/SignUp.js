@@ -26,10 +26,12 @@ function SignUp({ onRegistr }) {
       <h1 className="sign-up__title">Регистрация</h1>
       <form onSubmit={handleSubmit} className="sign-up__form">
         <input required type="email" onChange={handleChange} placeholder="Email" name="email" className="sign-up__input"></input>
-        <input required type="password" onChange={handleChange} placeholder="Пароль" name="password" className="sign-up__input"></input>
-        <button className="sign-up__button">Зарегистрироваться</button>
+        <div className="sign-up__input-container">
+        <input required type={showPassword? 'email' : 'password'} onChange={handleChange} placeholder="Пароль" name="password" className="sign-up__input"></input>
         <button className='sign-up__showPasswordButton' onMouseLeave={() => {setShowPassword(!showPassword)}} onMouseOver={() => {setShowPassword(!showPassword)}}></button>
         <div className={showPassword? "triangle-right" : 'triangle-rightOff'}></div>
+        </div>
+        <button className="sign-up__button">Зарегистрироваться</button>
       </form>
       <p className="sign-up__registration-question">Уже зарегистрированы? <Link className="sign-up__link" to="/sign-in">Войти</Link></p>
     </section>
