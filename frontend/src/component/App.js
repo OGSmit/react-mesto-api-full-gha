@@ -16,7 +16,10 @@ import { useState, useEffect } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
 import { tokencheck, authorize, register } from '../utils/Auth';
-
+//// redux
+import { useSelector, useDispatch } from 'react-redux';
+import { addCard, setCard } from '../store/reduxCardSlice';
+import store from '../store/index';
 
 
 
@@ -37,7 +40,7 @@ function App() {
   // object
   const [selectedCard, setSelectedCard] = useState({});
   const [currentUser, setCurrentUser] = useState({});
-  const [cards, setCards] = useState([]);
+  const [cards, setCards] = useState([]); // делаем Redux для cards
   const [cardForRemove, setCardForRemove] = useState({});
   // string
   const [emailAccount, setEmailAccount] = useState('');
@@ -45,6 +48,18 @@ function App() {
 
   const navigate = useNavigate();
 
+  //// Redux
+
+  const dispath = useDispatch();
+  const reduxCardState = useSelector(state => state.cards.reduxCards);
+  const addCardToReduxCards = (card) => {
+    dispath(addCard(card))
+  }
+  // const reduxCardState = useSelector(selectCard);
+
+  const showStore = () => { console.log(store.getState()) };
+
+  ////
   useEffect(() => {
     function handleTokenCheck() {
       const jwt = localStorage.getItem('jwt');
@@ -162,12 +177,16 @@ function App() {
       api.removelikeCard(card._id)
         .then((newCard) => {
           setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+
+          dispath(setCard(reduxCardState.map((c) => c._id === card._id ? newCard : c))); // it's working )
         })
         .catch(err => console.log(`Упс ${err}`))
     } else {
       api.addlikeCard(card._id)
         .then((newCard) => {
           setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+
+          dispath(setCard(reduxCardState.map((c) => c._id === card._id ? newCard : c)));
         })
         .catch(err => console.log(`Упс ${err}`))
     }
@@ -266,7 +285,14 @@ function App() {
             ...data,
             ...cards
           ]);
-        }).catch(err => console.log(`Component Main get ${err}`))
+          // + добавление карточек в Redux 
+          // checkCard();
+          data.forEach(element => {
+            addCardToReduxCards({ element });
+          });
+          // checkCard();
+        })
+        .then(() => { showStore() }).catch(err => console.log(`Component Main get ${err}`))
     } return () => { }
   }, [isloggedIn]);
 
@@ -283,6 +309,10 @@ function App() {
       }
     }
   }, [isSomePopupOpen])
+
+  // useEffect(() => {
+  //   console.log(cards[0]);
+  // })
 
   return (
     <div className="page">

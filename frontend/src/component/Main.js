@@ -1,11 +1,17 @@
 import '../index.css';
-import {useContext} from 'react';
+import { useContext } from 'react';
 import Card from './Card';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import { useSelector } from 'react-redux';
+import { selectCard } from '../store/reduxCardSlice';
+import store from '../store/index';
 
 function Main(props) {
 
   const userInfo = useContext(CurrentUserContext);
+  const reduxCardState = useSelector(state =>  state.cards.reduxCards );
+
+  const showStore = () => { console.log(store.getState()) };
 
   return (
     <main className="main">
@@ -31,6 +37,14 @@ function Main(props) {
         {props.cards.map((card, index) => {
           return (
             <Card onCardDelete={props.onCardDelete} onCardLike={props.onCardLike} key={index} onCardClick={props.onCardClick} card={card} name={card.name} link={card.link} likes={card.likes} />
+          )
+        })}
+      </section>
+        <p className='p-margin'>Рендер с помощью Redux  &#8659;</p>
+      <section className="profile-content">
+        {reduxCardState.map((reduxCard, index) => {
+          return (
+            <Card onCardDelete={props.onCardDelete} onCardLike={props.onCardLike} key={index} onCardClick={props.onCardClick} card={reduxCard} name={reduxCard.name} link={reduxCard.link} likes={reduxCard.likes} />
           )
         })}
       </section>

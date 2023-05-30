@@ -1,3 +1,9 @@
 .main {
   
 }
+
+.p-margin {
+  margin: 20px auto;
+  color: wheat;
+  text-align: center;
+}
