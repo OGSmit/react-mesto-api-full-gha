@@ -292,7 +292,7 @@ function App() {
           });
           // checkCard();
         })
-        .then(() => { showStore() }).catch(err => console.log(`Component Main get ${err}`))
+        .catch(err => console.log(`Component Main get ${err}`))
     } return () => { }
   }, [isloggedIn]);
 
@@ -309,10 +309,6 @@ function App() {
       }
     }
   }, [isSomePopupOpen])
-
-  // useEffect(() => {
-  //   console.log(cards[0]);
-  // })
 
   return (
     <div className="page">
