@@ -1,5 +1,5 @@
 const configForApi = {
-  url: 'http://127.0.0.1:3001',
+  url: 'https://api.ogsmit.nomoredomains.monster',
  // url: 'https://api.ogsmit.nomoredomains.monster', 
   headers: {
     'authorization': `Bearer ${localStorage.getItem('jwt')}`,
@@ -104,7 +104,7 @@ class Api {
       headers: this.headers
     }).then(this._checkResponse);
   }
-  
+
   _checkResponse(res) {
     if(res.ok) {
       return res.json();

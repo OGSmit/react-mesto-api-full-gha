@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://127.0.0.1:3001' //'https://api.ogsmit.nomoredomains.monster';
+export const BASE_URL = 'https://api.ogsmit.nomoredomains.monster';
 
 function checkResponse(res) {
   if(res.ok) {
