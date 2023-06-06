@@ -3,15 +3,12 @@ import { useContext } from 'react';
 import Card from './Card';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { useSelector } from 'react-redux';
-import { selectCard } from '../store/reduxCardSlice';
-import store from '../store/index';
 
 function Main(props) {
 
   const userInfo = useContext(CurrentUserContext);
   const reduxCardState = useSelector(state =>  state.cards.reduxCards );
 
-  const showStore = () => { console.log(store.getState()) };
 
   return (
     <main className="main">
@@ -36,7 +33,7 @@ function Main(props) {
       <section className="profile-content">
         {props.cards.map((card, index) => {
           return (
-            <Card onCardDelete={props.onCardDelete} onCardLike={props.onCardLike} key={index} onCardClick={props.onCardClick} card={card} name={card.name} link={card.link} likes={card.likes} />
+            <Card comments={card.comments} onCardDelete={props.onCardDelete} onCardLike={props.onCardLike} key={index} onCardClick={props.onCardClick} card={card} name={card.name} link={card.link} likes={card.likes} />
           )
         })}
       </section>

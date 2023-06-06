@@ -11,3 +11,46 @@
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
 }
+
+.comment {
+  display: flex;
+  font-display: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.comment__container {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: center;
+  justify-content: start;
+}
+
+.comment__avatar {
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  aspect-ratio: 1 / 1;
+}
+
+.comment__author-name {
+  color: blue;
+}
+
+.comment__button-delete {
+  background-image: url(../../images/bin-black.png);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 25px;
+  height: 25px;
+  background-color: rgba(0,0,0,0);
+  justify-self: flex-end;
+  border: 0;
+}
+
+.comment__button-delete:hover {
+  cursor: pointer;
+}

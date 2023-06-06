@@ -2,5 +2,37 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 4px;
+}
+
+.place-card__icon-container {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+}
+
+.place-card__comment-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 3px;
+}
+
+.place-card__comment-counter{
+margin: 0;
+}
+
+.place-card__comment-icon {
+background-image: url(../../../images/comment-icon.png);
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+width: 24px;
+height: 20px;
+}
+
+.place-card__comment-icon:hover {
+cursor: pointer;
 }

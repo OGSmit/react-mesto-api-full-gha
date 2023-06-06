@@ -19,7 +19,6 @@ import { tokencheck, authorize, register } from '../utils/Auth';
 //// redux
 import { useSelector, useDispatch } from 'react-redux';
 import { addCard, setCard } from '../store/reduxCardSlice';
-import store from '../store/index';
 
 
 
@@ -55,9 +54,6 @@ function App() {
   const addCardToReduxCards = (card) => {
     dispath(addCard(card))
   }
-  // const reduxCardState = useSelector(selectCard);
-
-  const showStore = () => { console.log(store.getState()) };
 
   ////
   useEffect(() => {
@@ -126,7 +122,6 @@ function App() {
   async function handleRegistration(password, email) {
     return register(password, email)
       .then((res) => {
-        console.log(res);
         if (res.email) {
           navigate('/sign-in', { replace: true })
           setIsAuthActionDone(true);
@@ -135,7 +130,6 @@ function App() {
         }
       })
       .catch((err) => {
-        console.log(err);
         setIsToolTipOpened(true)
         setIsAuthActionDone(false)
         setToolTipMessage('Что-то пошло не так! Попробуйте ещё раз')
@@ -146,9 +140,8 @@ function App() {
     setIsImagePopupOpen(true);
     setSelectedCard({
       ...selectedCard,
-      name: card.name,
-      link: card.link
-    });
+      ...card
+    })
   }
 
   function handleCardDelete(e) {
@@ -177,15 +170,13 @@ function App() {
       api.removelikeCard(card._id)
         .then((newCard) => {
           setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-
-          dispath(setCard(reduxCardState.map((c) => c._id === card._id ? newCard : c))); // it's working )
+          dispath(setCard(reduxCardState.map((c) => c._id === card._id ? newCard : c)));
         })
         .catch(err => console.log(`Упс ${err}`))
     } else {
       api.addlikeCard(card._id)
         .then((newCard) => {
           setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-
           dispath(setCard(reduxCardState.map((c) => c._id === card._id ? newCard : c)));
         })
         .catch(err => console.log(`Упс ${err}`))
@@ -233,7 +224,6 @@ function App() {
     setIsloggedIn(false)
     setCards([]);
     navigate('/', { replace: true });
-    console.log('ok')
   }
 
   function goEnter() {
@@ -257,7 +247,6 @@ function App() {
       })
       .catch(err => console.log(`Упс ${err}`))
       .finally(() => {
-        console.log(cards)
         setIsApiProcessing(false)
       })
   }
@@ -285,12 +274,9 @@ function App() {
             ...data,
             ...cards
           ]);
-          // + добавление карточек в Redux 
-          // checkCard();
           data.forEach(element => {
             addCardToReduxCards({ element });
           });
-          // checkCard();
         })
         .catch(err => console.log(`Component Main get ${err}`))
     } return () => { }
@@ -355,7 +341,8 @@ function App() {
           isOpened={isImagePopupOpen}
           onClose={closeAllPopups}
           onCardClick={handleCardClick}
-          card={selectedCard} />
+          card={selectedCard}
+          /> 
 
         <EditProfilePopup
           isApiProcessing={isApiProcessing}

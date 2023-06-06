@@ -29,6 +29,21 @@ const cardsSchema = new mongoose.Schema(
       ref: 'user',
       default: [],
     }],
+    comments: [{
+      text: {
+        type: String,
+        required: [true, '400 Поле "text" должно быть заполнено'],
+      },
+      user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user',
+        required: true,
+      },
+      createdAt: {
+        type: Date,
+        default: Date.now,
+      },
+    }],
     createdAt: {
       type: Date,
       default: Date.now,

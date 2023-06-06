@@ -70,3 +70,57 @@ module.exports.dislikeCard = (req, res, next) => {
   })
     .catch(next);
 };
+
+module.exports.addComment = (req, res, next) => {
+  const { cardId } = req.params;
+  const { text } = req.body;
+  const user = req.user._id;
+
+  Card.findByIdAndUpdate(
+    cardId,
+    { $push: { comments: { text, user } } },
+    { new: true },
+  )
+    .populate('comments.user')
+    .then((card) => {
+      if (!card) {
+        throw new NotFoundError('Карточка с таким id не найдена');
+      }
+      res.status(200).send(card);
+    })
+    .catch(next);
+};
+
+module.exports.deleteComment = (req, res, next) => {
+  const { cardId, commentId } = req.params;
+  const user = req.user._id;
+
+  Card.findByIdAndUpdate(
+    cardId,
+    { $pull: { comments: { _id: commentId, user } } },
+    { new: true },
+  )
+    .populate('comments.user')
+    .then((card) => {
+      if (!card) {
+        throw new NotFoundError('Карточка с таким id не найдена');
+      }
+      res.status(200).send(card);
+    })
+    .catch(next);
+};
+
+module.exports.getCommentsByCardId = (req, res, next) => {
+  const { cardId } = req.params;
+
+  Card.findById(cardId)
+    .populate('comments.user')
+    .then((card) => {
+      if (!card) {
+        throw new NotFoundError('Карточка с таким id не найдена');
+      }
+
+      res.status(200).send(card.comments);
+    })
+    .catch(next);
+};

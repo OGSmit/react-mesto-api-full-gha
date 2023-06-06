@@ -1,10 +1,11 @@
 const configForApi = {
-  url: 'https://api.ogsmit.nomoredomains.monster',
+  url: 'http://127.0.0.1:3001',
+ // url: 'https://api.ogsmit.nomoredomains.monster', 
   headers: {
     'authorization': `Bearer ${localStorage.getItem('jwt')}`,
     'Content-Type': 'application/json'
   }
-}; // конфиг инициализируеться еще до того как у нас появился токен 
+};
 
 class Api {
   constructor(config) {
@@ -83,6 +84,27 @@ class Api {
     }).then(this._checkResponse)
   }
 
+  addComment(cardId, commentText) {
+    return fetch(`${this.url}/cards/${cardId}/comments`, {
+      method: 'POST',
+      headers: this.headers,
+      body: JSON.stringify({ text: commentText })
+    }).then(this._checkResponse);
+  }
+
+  deleteComment(cardId, commentId) {
+    return fetch(`${this.url}/cards/${cardId}/comments/${commentId}`, {
+      method: 'DELETE',
+      headers: this.headers
+    }).then(this._checkResponse);
+  }
+
+  getCommentsByCardId(cardId) {
+    return fetch(`${this.url}/cards/${cardId}/comments`, {
+      headers: this.headers
+    }).then(this._checkResponse);
+  }
+  
   _checkResponse(res) {
     if(res.ok) {
       return res.json();
@@ -90,6 +112,10 @@ class Api {
     return Promise.reject(`Ошибка: ${res.status}`)
   }
 }
+
+
+
+
 
 const api = new Api(configForApi);
 

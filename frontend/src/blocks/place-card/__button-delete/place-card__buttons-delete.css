@@ -20,3 +20,19 @@
 .place-card__buttons-hidden {
   visibility: hidden;
 }
+
+.place-card__comment-delete {
+  background-color: rgb(7, 7, 7);
+  background-image: url('../../../images/bin.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 18px;
+  height: 19px;
+  border-style: none;
+  align-self: center;
+}
+
+.place-card__comment-delete:hover {
+  cursor: pointer;
+  opacity: .5;
+}

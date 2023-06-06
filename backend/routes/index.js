@@ -11,6 +11,7 @@ router.post('/signup', signUpBodyValidator, createUser);
 router.post('/signin', signInBodyValidator, login);
 
 router.use('/users', auth, routesUser);
+
 router.use('/cards', auth, routesCard);
 
 router.use('/*', (req, res, next) => {
